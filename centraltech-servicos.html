@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central Tech – Todos os Serviços | Osasco e Carapicuíba</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1a5fd4;
+    --blue-dark: #0f3d8c;
+    --navy: #1a2744;
+    --accent: #f0a500;
+    --bg: #f5f6fa;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --light: #e8edf7;
+    --green: #16a34a;
+    --teal: #0891b2;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--navy); overflow-x: hidden; }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 6%;
+    background: rgba(255,255,255,0.93);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26,95,212,0.1);
+  }
+  .logo-text { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--navy); line-height: 1.2; }
+  .logo-text span { display: block; color: var(--blue); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; }
+
+  .header-cta {
+    display: flex; align-items: center; gap: 10px;
+    background: #25d366; color: #fff;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem;
+    padding: 10px 20px; border-radius: 50px; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .header-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
+  .header-cta svg { width: 18px; height: 18px; fill: #fff; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 130px 6% 80px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue-dark) 60%, var(--blue) 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,165,0,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 700px; position: relative; z-index: 2;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(240,165,0,0.2); border: 1px solid rgba(240,165,0,0.4);
+    color: var(--accent); font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.06em; padding: 6px 14px; border-radius: 50px; margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 18px;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p { color: rgba(255,255,255,0.72); font-size: 1.05rem; line-height: 1.7; max-width: 520px; }
+
+  .hero-cats {
+    display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .cat-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; font-size: 0.85rem; font-weight: 500;
+    padding: 8px 18px; border-radius: 50px; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .cat-pill:hover { background: rgba(255,255,255,0.18); }
+
+  /* ── SECTION COMMONS ── */
+  .section-label {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800; color: var(--navy); margin-bottom: 8px;
+  }
+  .section-title span { color: var(--blue); }
+  .section-sub { color: var(--gray); font-size: 0.97rem; line-height: 1.65; margin-bottom: 48px; max-width: 560px; }
+
+  /* ── CATEGORIA BLOCO ── */
+  .category {
+    padding: 80px 6%;
+  }
+  .category:nth-child(odd) { background: var(--white); }
+  .category:nth-child(even) { background: var(--bg); }
+
+  .cat-header {
+    display: flex; align-items: flex-start; gap: 20px; margin-bottom: 48px;
+  }
+  .cat-icon-big {
+    width: 64px; height: 64px; border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; flex-shrink: 0;
+  }
+  .cat-icon-big.blue { background: var(--light); }
+  .cat-icon-big.green { background: #dcfce7; }
+  .cat-icon-big.teal { background: #e0f2fe; }
+
+  .cat-header-text {}
+  .cat-tag {
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 50px;
+    margin-bottom: 10px;
+  }
+  .cat-tag.blue { background: var(--light); color: var(--blue); }
+  .cat-tag.green { background: #dcfce7; color: var(--green); }
+  .cat-tag.teal { background: #e0f2fe; color: var(--teal); }
+
+  .cat-header-text h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 800; color: var(--navy); margin-bottom: 8px;
+  }
+  .cat-header-text p { color: var(--gray); font-size: 0.93rem; line-height: 1.65; max-width: 560px; }
+
+  /* ── CARDS DE SERVIÇO ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 18px; padding: 28px 24px;
+    border: 2px solid transparent;
+    transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
+    position: relative; overflow: hidden;
+  }
+  .category:nth-child(even) .card { background: var(--white); }
+  .category:nth-child(odd) .card { background: var(--bg); }
+
+  .card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .card.blue::before { background: linear-gradient(90deg, var(--blue), var(--accent)); }
+  .card.green::before { background: linear-gradient(90deg, var(--green), #86efac); }
+  .card.teal::before { background: linear-gradient(90deg, var(--teal), #38bdf8); }
+
+  .card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(26,39,68,0.09); border-color: var(--light); }
+  .card:hover::before { transform: scaleX(1); }
+
+  .card-icon {
+    width: 46px; height: 46px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px; font-size: 1.4rem;
+  }
+  .card-icon.blue { background: var(--light); }
+  .card-icon.green { background: #dcfce7; }
+  .card-icon.teal { background: #e0f2fe; }
+
+  .card h3 {
+    font-family: 'Syne', sans-serif; font-size: 1rem;
+    font-weight: 700; color: var(--navy); margin-bottom: 8px;
+  }
+  .card p { font-size: 0.87rem; color: var(--gray); line-height: 1.65; }
+  .card-badge {
+    display: inline-block; margin-top: 14px;
+    font-size: 0.76rem; font-weight: 700;
+    padding: 4px 11px; border-radius: 50px;
+  }
+  .card-badge.blue { background: var(--light); color: var(--blue); }
+  .card-badge.green { background: #dcfce7; color: var(--green); }
+  .card-badge.teal { background: #e0f2fe; color: var(--teal); }
+
+  /* ── CTA FAIXA ── */
+  .cta-band {
+    background: linear-gradient(135deg, var(--navy), var(--blue-dark));
+    padding: 60px 6%; text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-band::before {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,165,0,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-band h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800; color: #fff; margin-bottom: 12px;
+    position: relative; z-index: 2;
+  }
+  .cta-band p {
+    color: rgba(255,255,255,0.65); font-size: 0.97rem;
+    line-height: 1.65; margin-bottom: 30px;
+    position: relative; z-index: 2;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #25d366; color: #fff;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+    padding: 16px 32px; border-radius: 50px; text-decoration: none;
+    box-shadow: 0 4px 24px rgba(37,211,102,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; z-index: 2;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(37,211,102,0.5); }
+  .btn-primary svg { width: 20px; height: 20px; fill: #fff; }
+
+  /* ── DIAS ── */
+  .days-band {
+    background: var(--white); padding: 28px 6%;
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--light);
+  }
+  .days-band span.label { color: var(--gray); font-size: 0.85rem; }
+  .day-pill {
+    background: var(--light); color: var(--blue);
+    font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700;
+    padding: 5px 14px; border-radius: 50px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 32px 6%;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  footer p { color: rgba(255,255,255,0.35); font-size: 0.82rem; }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a {
+    color: rgba(255,255,255,0.5); font-size: 0.82rem; text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: #fff; }
+
+  /* ── WA FLOAT ── */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 200;
+    background: #25d366; width: 60px; height: 60px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.5); text-decoration: none;
+    animation: pulse 2.5s infinite; transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.1); animation: none; }
+  .wa-float svg { width: 32px; height: 32px; fill: #fff; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
+    50%      { box-shadow: 0 4px 40px rgba(37,211,102,0.8); }
+  }
+
+  @media (max-width: 600px) {
+    .cat-header { flex-direction: column; gap: 14px; }
+    .header-cta span { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-text">
+    Central Tech
+    <span>Todos os Serviços</span>
+  </div>
+  <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." class="header-cta" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.126 1.526 5.863L.057 23.882a.5.5 0 00.61.634l6.265-1.638A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.773 9.773 0 01-4.992-1.366l-.357-.213-3.714.971.995-3.618-.234-.373A9.772 9.772 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.431 0 9.818 4.388 9.818 9.818 0 5.431-4.387 9.818-9.818 9.818z"/></svg>
+    <span>Falar no WhatsApp</span>
+  </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">📍 Osasco, Carapicuíba e região</div>
+    <h1>Tudo que seu<br>dispositivo precisa,<br><em>em um só lugar.</em></h1>
+    <p>Notebooks, PCs, smartphones e câmeras de segurança. Atendimento com busca no seu endereço, diagnóstico gratuito e garantia em todo serviço.</p>
+    <div class="hero-cats">
+      <a href="#notebooks" class="cat-pill">💻 Notebooks e PCs</a>
+      <a href="#smartphones" class="cat-pill">📱 Smartphones</a>
+      <a href="#cameras" class="cat-pill">📷 Câmeras de Segurança</a>
+    </div>
+  </div>
+</section>
+
+<!-- DIAS DE ATENDIMENTO -->
+<div class="days-band">
+  <span class="label">📅 Dias de retirada:</span>
+  <span class="day-pill">Sexta-feira</span>
+  <span class="day-pill">Sábado</span>
+  <span class="day-pill">Domingo</span>
+  <span class="day-pill">Segunda-feira</span>
+</div>
+
+<!-- CATEGORIA 1: NOTEBOOKS E PCs -->
+<section class="category" id="notebooks">
+  <div class="cat-header">
+    <div class="cat-icon-big blue">💻</div>
+    <div class="cat-header-text">
+      <span class="cat-tag blue">Notebooks e PCs</span>
+      <h2>Assistência Técnica<br>para Computadores</h2>
+      <p>Diagnóstico completo, reparo e upgrade de notebooks e desktops de todas as marcas. Buscamos o equipamento no seu endereço.</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card blue">
+      <div class="card-icon blue">🖥️</div>
+      <h3>Troca de Tela</h3>
+      <p>Substituição de display trincado, manchado ou sem imagem. Telas originais e compatíveis para todas as marcas e modelos.</p>
+      <span class="card-badge blue">Notebook e All-in-One</span>
+    </div>
+    <div class="card blue">
+      <div class="card-icon blue">🌬️</div>
+      <h3>Limpeza Interna</h3>
+      <p>Limpeza completa dos componentes internos com troca de pasta térmica. Resolve superaquecimento, travamentos e lentidão.</p>
+      <span class="card-badge blue">Notebook e Desktop</span>
+    </div>
+    <div class="card blue">
+      <div class="card-icon blue">🔍</div>
+      <h3>Diagnóstico Completo</h3>
+      <p>Identificamos qualquer problema de hardware, software ou elétrico. Relatório com orçamento antes de iniciar qualquer reparo.</p>
+      <span class="card-badge blue">Diagnóstico gratuito</span>
+    </div>
+    <div class="card blue">
+      <div class="card-icon blue">⚡</div>
+      <h3>Upgrade SSD e RAM</h3>
+      <p>Troca de HD por SSD e ampliação de memória RAM. Seu equipamento pode ficar até 5x mais rápido com essa atualização.</p>
+      <span class="card-badge blue">Instalação inclusa</span>
+    </div>
+    <div class="card blue">
+      <div class="card-icon blue">🔄</div>
+      <h3>Formatação e Reinstalação</h3>
+      <p>Windows 10, 11 ou Linux com instalação limpa e todos os drivers configurados. Backup de arquivos disponível mediante solicitação.</p>
+      <span class="card-badge blue">Windows / Linux</span>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIA 2: SMARTPHONES -->
+<section class="category" id="smartphones">
+  <div class="cat-header">
+    <div class="cat-icon-big teal">📱</div>
+    <div class="cat-header-text">
+      <span class="cat-tag teal">Smartphones</span>
+      <h2>Reparo de<br>Celulares</h2>
+      <p>Conserto de smartphones de todas as marcas: Samsung, iPhone, Motorola, Xiaomi e muito mais. Peças de qualidade e garantia no serviço.</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card teal">
+      <div class="card-icon teal">📲</div>
+      <h3>Troca de Tela</h3>
+      <p>Substituição de display trincado ou com toque defeituoso. Trabalhamos com telas originais e de alta qualidade para todas as marcas e modelos.</p>
+      <span class="card-badge teal">Todas as marcas</span>
+    </div>
+    <div class="card teal">
+      <div class="card-icon teal">🔋</div>
+      <h3>Troca de Bateria</h3>
+      <p>Bateria viciada, descarregando rápido ou celular desligando sozinho? Fazemos a substituição com baterias de qualidade e garantia.</p>
+      <span class="card-badge teal">Todas as marcas</span>
+    </div>
+    <div class="card teal">
+      <div class="card-icon teal">🔧</div>
+      <h3>Diagnóstico</h3>
+      <p>Identificamos problemas de software, hardware, câmera, microfone, alto-falante e conectividade. Orçamento completo antes do reparo.</p>
+      <span class="card-badge teal">Diagnóstico gratuito</span>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIA 3: CÂMERAS -->
+<section class="category" id="cameras">
+  <div class="cat-header">
+    <div class="cat-icon-big green">📷</div>
+    <div class="cat-header-text">
+      <span class="cat-tag green">Câmeras de Segurança</span>
+      <h2>Instalação de CFTV<br>Residencial e Comercial</h2>
+      <p>Projeto completo de monitoramento com câmeras IP e analógicas, DVR/NVR e acesso remoto pelo celular. Proteja o que é seu.</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card green">
+      <div class="card-icon green">🏠</div>
+      <h3>CFTV Residencial</h3>
+      <p>Instalação de câmeras para casas e apartamentos com monitoramento pelo smartphone. Cobertura de entrada, garagem, quintal e áreas internas.</p>
+      <span class="card-badge green">Projeto incluso</span>
+    </div>
+    <div class="card green">
+      <div class="card-icon green">🏢</div>
+      <h3>CFTV Comercial</h3>
+      <p>Sistemas de monitoramento para comércios, escritórios e condomínios. Câmeras externas e internas com gravação contínua e acesso remoto.</p>
+      <span class="card-badge green">Projeto incluso</span>
+    </div>
+    <div class="card green">
+      <div class="card-icon green">📡</div>
+      <h3>Acesso Remoto</h3>
+      <p>Configure e visualize suas câmeras em tempo real pelo celular, de qualquer lugar. Instalamos e configuramos o app para você.</p>
+      <span class="card-badge green">Android e iPhone</span>
+    </div>
+    <div class="card green">
+      <div class="card-icon green">🛠️</div>
+      <h3>Manutenção de CFTV</h3>
+      <p>Revisão, limpeza e substituição de câmeras defeituosas em sistemas já instalados. Diagnóstico completo do sistema de segurança.</p>
+      <span class="card-badge green">Todos os sistemas</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-band">
+  <h2>Precisa de algum desses serviços?</h2>
+  <p>Entre em contato pelo WhatsApp. Atendemos em Osasco, Carapicuíba e região às sextas, sábados, domingos e segundas-feiras.</p>
+  <a href="https://wa.me/5511999999999?text=Olá!%20Vi%20os%20serviços%20da%20Central%20Tech%20e%20gostaria%20de%20um%20orçamento." class="btn-primary" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.126 1.526 5.863L.057 23.882a.5.5 0 00.61.634l6.265-1.638A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.773 9.773 0 01-4.992-1.366l-.357-.213-3.714.971.995-3.618-.234-.373A9.772 9.772 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.431 0 9.818 4.388 9.818 9.818 0 5.431-4.387 9.818-9.818 9.818z"/></svg>
+    Solicitar orçamento pelo WhatsApp
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo-text" style="color:#fff">
+    Central Tech
+    <span style="color:rgba(255,255,255,0.4)">Osasco, Carapicuíba e região</span>
+  </div>
+  <div class="footer-links">
+    <a href="centraltech.html">Assistência Notebooks</a>
+    <a href="#">Todos os Serviços</a>
+  </div>
+  <p>© 2026 Central Tech. Todos os direitos reservados.</p>
+</footer>
+
+<!-- WA FLUTUANTE -->
+<a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." class="wa-float" target="_blank">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.126 1.526 5.863L.057 23.882a.5.5 0 00.61.634l6.265-1.638A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.773 9.773 0 01-4.992-1.366l-.357-.213-3.714.971.995-3.618-.234-.373A9.772 9.772 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.431 0 9.818 4.388 9.818 9.818 0 5.431-4.387 9.818-9.818 9.818z"/></svg>
+</a>
+
+</body>
+</html>

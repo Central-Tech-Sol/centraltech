@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central Tech – Assistência Técnica de Notebooks | Grande São Paulo</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1a5fd4;
+    --blue-dark: #0f3d8c;
+    --navy: #1a2744;
+    --accent: #f0a500;
+    --bg: #f5f6fa;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --light: #e8edf7;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 6%;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26,95,212,0.1);
+  }
+
+  .logo-wrap { display: flex; align-items: center; gap: 12px; }
+  .logo-wrap img { height: 46px; }
+  .logo-text { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--navy); line-height: 1.2; }
+  .logo-text span { display: block; color: var(--blue); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; }
+
+  .header-cta {
+    display: flex; align-items: center; gap: 10px;
+    background: #25d366;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .header-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
+  .header-cta svg { width: 18px; height: 18px; fill: #fff; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 6% 80px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue-dark) 50%, var(--blue) 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,165,0,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -150px; left: -100px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,95,212,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 620px;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(240,165,0,0.2);
+    border: 1px solid rgba(240,165,0,0.4);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 6px 14px;
+    border-radius: 50px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero p {
+    color: rgba(255,255,255,0.75);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 500px;
+  }
+
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #25d366;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 16px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(37,211,102,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(37,211,102,0.5); }
+  .btn-primary svg { width: 20px; height: 20px; fill: #fff; }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 16px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.18); }
+
+  .hero-stats {
+    display: flex; gap: 36px; margin-top: 52px; flex-wrap: wrap;
+    animation: fadeUp 0.9s 0.3s ease both;
+  }
+  .stat { color: #fff; }
+  .stat strong { display: block; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+  .stat span { font-size: 0.82rem; color: rgba(255,255,255,0.6); }
+
+  /* ── COMO FUNCIONA ── */
+  .how {
+    padding: 90px 6%;
+    background: var(--white);
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 56px;
+  }
+  .section-title span { color: var(--blue); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .step {
+    background: var(--bg);
+    border-radius: 20px;
+    padding: 32px 28px;
+    position: relative;
+    transition: transform 0.25s;
+  }
+  .step:hover { transform: translateY(-4px); }
+
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--light);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .step h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .step p { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
+
+  .step-icon {
+    width: 44px; height: 44px;
+    background: var(--blue);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .step-icon svg { width: 22px; height: 22px; fill: #fff; }
+
+  /* ── SERVIÇOS ── */
+  .services {
+    padding: 90px 6%;
+    background: var(--bg);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .service-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 32px 28px;
+    border: 2px solid transparent;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-card:hover { border-color: var(--light); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,39,68,0.08); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    width: 52px; height: 52px;
+    background: var(--light);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .service-icon svg { width: 26px; height: 26px; }
+
+  .service-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .service-card p { font-size: 0.9rem; color: var(--gray); line-height: 1.65; }
+
+  .service-price {
+    margin-top: 16px;
+    display: inline-block;
+    background: var(--light);
+    color: var(--blue);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 50px;
+  }
+
+  /* ── POR QUE NÓS ── */
+  .why {
+    padding: 90px 6%;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .why::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,95,212,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .why .section-label { color: var(--accent); }
+  .why .section-title { color: #fff; }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .why-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 28px 24px;
+    transition: background 0.2s;
+  }
+  .why-item:hover { background: rgba(255,255,255,0.1); }
+
+  .why-item .icon {
+    font-size: 2rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .why-item h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .why-item p { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  /* ── CTA FINAL ── */
+  .cta-section {
+    padding: 90px 6%;
+    background: var(--white);
+    text-align: center;
+  }
+
+  .cta-box {
+    max-width: 680px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, var(--navy), var(--blue-dark));
+    border-radius: 28px;
+    padding: 60px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,165,0,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-box h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 14px;
+    position: relative; z-index: 2;
+  }
+  .cta-box p {
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    margin-bottom: 32px;
+    line-height: 1.65;
+    position: relative; z-index: 2;
+  }
+  .cta-box .btn-primary { position: relative; z-index: 2; margin: 0 auto; font-size: 1.05rem; padding: 18px 36px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 32px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer p { color: rgba(255,255,255,0.35); font-size: 0.82rem; }
+  footer .logo-wrap img { height: 36px; }
+
+  /* ── WHATSAPP FLOAT ── */
+  .wa-float {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    z-index: 200;
+    background: #25d366;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+    text-decoration: none;
+    animation: pulse 2.5s infinite;
+    transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.1); animation: none; }
+  .wa-float svg { width: 32px; height: 32px; fill: #fff; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
+    50%      { box-shadow: 0 4px 40px rgba(37,211,102,0.8); }
+  }
+
+  .days-strip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.9s 0.45s ease both;
+  }
+  .days-label {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.83rem;
+    margin-right: 4px;
+  }
+  .day {
+    background: rgba(240,165,0,0.18);
+    border: 1px solid rgba(240,165,0,0.45);
+    color: var(--accent);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 50px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .hero-btns { flex-direction: column; }
+    .hero-stats { gap: 20px; }
+    .cta-box { padding: 40px 24px; }
+    .header-cta span { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <!-- Substitua o src pelo caminho real do seu logo -->
+    <img src="https://i.imgur.com/placeholder.png" alt="Central Tech" onerror="this.style.display='none'">
+    <div class="logo-text">
+      Central Tech
+      <span>Assistência Técnica</span>
+    </div>
+  </div>
+  <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." class="header-cta" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.126 1.526 5.863L.057 23.882a.5.5 0 00.61.634l6.265-1.638A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.773 9.773 0 01-4.992-1.366l-.357-.213-3.714.971.995-3.618-.234-.373A9.772 9.772 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.431 0 9.818 4.388 9.818 9.818 0 5.431-4.387 9.818-9.818 9.818z"/></svg>
+    <span>Falar no WhatsApp</span>
+  </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      📍 Atendimento em Osasco, Carapicuíba e região
+    </div>
+    <h1>Seu notebook com<br>problema? <em>A gente<br>resolve.</em></h1>
+    <p>Troca de tela, limpeza, upgrade, formatação e diagnóstico completo. Buscamos o seu equipamento no seu endereço em <strong style="color:rgba(255,255,255,0.9)">Osasco, Carapicuíba e região</strong> — sem você precisar sair de casa.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." class="btn-primary" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.126 1.526 5.863L.057 23.882a.5.5 0 00.61.634l6.265-1.638A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.773 9.773 0 01-4.992-1.366l-.357-.213-3.714.971.995-3.618-.234-.373A9.772 9.772 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.431 0 9.818 4.388 9.818 9.818 0 5.431-4.387 9.818-9.818 9.818z"/></svg>
+        Solicitar orçamento grátis
+      </a>
+      <a href="#servicos" class="btn-secondary">Ver serviços ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <strong>Grátis</strong>
+        <span>Diagnóstico inicial</span>
+      </div>
+      <div class="stat">
+        <strong>Busca</strong>
+        <span>No seu endereço</span>
+      </div>
+      <div class="stat">
+        <strong>Garantia</strong>
+        <span>Em todo serviço</span>
+      </div>
+    </div>
+
+    <div class="days-strip">
+      <span class="days-label">📅 Dias de retirada:</span>
+      <span class="day">Sex</span>
+      <span class="day">Sáb</span>
+      <span class="day">Dom</span>
+      <span class="day">Seg</span>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="how">
+  <p class="section-label">Simples assim</p>
+  <h2 class="section-title">Como funciona o<br><span>atendimento</span></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+      </div>
+      <div class="step-num">01</div>
+      <h3>Fale pelo WhatsApp</h3>
+      <p>Descreva o problema do seu notebook. Atendemos você rapidamente para entender o que aconteceu.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+      </div>
+      <div class="step-num">02</div>
+      <h3>Busca no seu endereço</h3>
+      <p>Agendamos a retirada na sua casa ou trabalho em <strong>Osasco, Carapicuíba e região</strong>. Atendemos às <strong>sextas, sábados, domingos e segundas-feiras</strong>. Sem fila, sem deslocamento.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+      </div>
+      <div class="step-num">03</div>
+      <h3>Diagnóstico e orçamento</h3>
+      <p>Avaliamos o problema e enviamos o orçamento completo. Você aprova antes de qualquer serviço.</p>
+    </div>
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      </div>
+      <div class="step-num">04</div>
+      <h3>Entrega e garantia</h3>
+      <p>Devolvemos o equipamento consertado no seu endereço, com garantia por escrito no serviço realizado.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="services" id="servicos">
+  <p class="section-label">O que fazemos</p>
+  <h2 class="section-title">Serviços <span>especializados</span></h2>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1a5fd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>Troca de Tela</h3>
+      <p>Substituição de display trincado, manchado ou sem imagem. Trabalhamos com telas originais e compatíveis de alta qualidade para todas as marcas.</p>
+      <span class="service-price">Notebook e PC All-in-One</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1a5fd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1010 10"/><path d="M12 6v6l4 2"/><path d="M22 2l-5 5"/><path d="M17 2h5v5"/></svg>
+      </div>
+      <h3>Limpeza Interna</h3>
+      <p>Limpeza completa dos componentes internos com troca de pasta térmica. Resolve superaquecimento, travamentos e queda de desempenho.</p>
+      <span class="service-price">Notebooks e Desktops</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1a5fd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <h3>Diagnóstico Completo</h3>
+      <p>Identificamos qualquer problema: hardware, software, vírus ou falha elétrica. Relatório completo com orçamento detalhado antes de iniciar.</p>
+      <span class="service-price">Diagnóstico gratuito</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1a5fd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+      </div>
+      <h3>Upgrade de SSD e RAM</h3>
+      <p>Dê uma nova vida ao seu equipamento. Troca de HD por SSD, ampliação de memória RAM — seu notebook fica até 5x mais rápido.</p>
+      <span class="service-price">Instalação inclusa</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1a5fd4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
+      </div>
+      <h3>Formatação e Reinstalação</h3>
+      <p>Windows 10, 11, Linux — instalação limpa com todos os drivers. Backup de arquivos antes do processo mediante solicitação.</p>
+      <span class="service-price">Windows / Linux</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- POR QUE ESCOLHER -->
+<section class="why">
+  <p class="section-label">Nossos diferenciais</p>
+  <h2 class="section-title">Por que escolher a <span style="color:var(--accent)">Central Tech?</span></h2>
+  <div class="why-grid">
+    <div class="why-item">
+      <span class="icon">🚗</span>
+      <h4>Busca e entrega em casa</h4>
+      <p>Atendemos às <strong style="color:rgba(255,255,255,0.85)">sextas, sábados, domingos e segundas</strong>. Buscamos e devolvemos o equipamento no seu endereço em <strong style="color:rgba(255,255,255,0.85)">Osasco, Carapicuíba e região</strong>.</p>
+    </div>
+    <div class="why-item">
+      <span class="icon">🔍</span>
+      <h4>Orçamento sem surpresas</h4>
+      <p>Diagnóstico gratuito e orçamento aprovado por você antes de qualquer serviço começar.</p>
+    </div>
+    <div class="why-item">
+      <span class="icon">✅</span>
+      <h4>Garantia em todo serviço</h4>
+      <p>Todos os reparos têm garantia por escrito. Problema voltou? A gente resolve sem custo adicional.</p>
+    </div>
+    <div class="why-item">
+      <span class="icon">💬</span>
+      <h4>Acompanhamento pelo WhatsApp</h4>
+      <p>Você recebe atualizações em tempo real do andamento do serviço, sem precisar ligar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="cta-box">
+    <h2>Seu notebook com defeito?<br>Fale agora conosco.</h2>
+    <p>Atendemos toda a Grande São Paulo. Orçamento gratuito, sem compromisso. Resposta rápida pelo WhatsApp.</p>
+    <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20meu%20notebook." class="btn-primary" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.126 1.526 5.863L.057 23.882a.5.5 0 00.61.634l6.265-1.638A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.773 9.773 0 01-4.992-1.366l-.357-.213-3.714.971.995-3.618-.234-.373A9.772 9.772 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.431 0 9.818 4.388 9.818 9.818 0 5.431-4.387 9.818-9.818 9.818z"/></svg>
+      Solicitar orçamento pelo WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo-wrap">
+    <div class="logo-text" style="color:#fff">
+      Central Tech
+      <span style="color:rgba(255,255,255,0.4)">Assistência Técnica · Osasco, Carapicuíba e região</span>
+    </div>
+  </div>
+  <p>© 2026 Central Tech. Todos os direitos reservados.</p>
+</footer>
+
+<!-- WHATSAPP FLUTUANTE -->
+<a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." class="wa-float" target="_blank" title="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.126 1.526 5.863L.057 23.882a.5.5 0 00.61.634l6.265-1.638A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.773 9.773 0 01-4.992-1.366l-.357-.213-3.714.971.995-3.618-.234-.373A9.772 9.772 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.431 0 9.818 4.388 9.818 9.818 0 5.431-4.387 9.818-9.818 9.818z"/></svg>
+</a>
+
+</body>
+</html>
